@@ -57,23 +57,33 @@ def fill_in(driver, amount):
 
     driver.execute_script("arguments[0].click();", WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "continue-button"))))
 
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//label[@for='f-howManyNights']"))).click()
+    nights = "-6" # "-3"
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//label[@for='f-howManyNights" + nights + "']"))).click()
     driver.execute_script("arguments[0].click();", WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "continue-button"))))
 
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//label[@for='f-howManyNights']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//label[@for='f-howManyNights" + nights + "']"))).click()
     driver.execute_script("arguments[0].click();", WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "continue-button"))))
 
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//label[@for='f-howManyNights']"))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//label[@for='f-howManyNights" + nights + "']"))).click()
     driver.execute_script("arguments[0].click();", WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "continue-button"))))
 
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//label[@for='f-howManyChildren']"))).click()
     driver.execute_script("arguments[0].click();", WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "continue-button"))))
+    # Do you want to add parents name? comment this
+    driver.execute_script("arguments[0].click();", WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "continue-button"))))
 
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//label[@for='f-addParentsNames-2']"))).click()
     driver.execute_script("arguments[0].click();", WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "continue-button"))))
-    driver.execute_script("arguments[0].click();", WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "continue-button"))))
-    driver.execute_script("arguments[0].click();", WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "continue-button"))))
-
+    # driver.execute_script("arguments[0].click();", WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "continue-button"))))
+    # driver.execute_script("arguments[0].click();", WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "continue-button"))))
+    cms_value = WebDriverWait(driver, 20).until(
+        EC.visibility_of_element_located((
+            By.XPATH,
+            "//td[@class='govuk-table__cell govuk-table__cell--numeric']"
+        ))
+    ).text
+    # <td class="govuk-table__cell govuk-table__cell--numeric"> £378.35</td>
+    return cms_value
 
 def fill_in_fast(driver, amount):
     driver.get("https://child-maintenance.dwp.gov.uk/calculate/details/will-you-be-paying-or-receiving-child-maintenance-payments")
